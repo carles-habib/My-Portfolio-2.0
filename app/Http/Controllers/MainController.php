@@ -8,6 +8,7 @@ use App\Models\Experience;
 use App\Models\FunFact;
 use App\Models\Image;
 use App\Models\Portfolio;
+use App\Models\PortfolioCategory;
 use App\Models\QuickLinks;
 use App\Models\Services;
 use App\Models\skills;
@@ -28,8 +29,8 @@ class MainController extends Controller
         $image = Image::first();
         $skills = skills::all();
         $stories = Stories::all();
-        $portfolios = Portfolio::all();
-        $categories = Portfolio::select('category')->distinct()->pluck('category');
+        $portfolios = Portfolio::with('gallery')->get();
+        $categories = PortfolioCategory::orderBy('name')->get();
 
         return view('pages.home',compact('main','quicklinks','funfact','ContactInfo','services','experiences','education','image','skills','stories','portfolios','categories'));
     }
@@ -42,6 +43,9 @@ class MainController extends Controller
     public function blogdetail()
     {
         return view('pages.blog-details');
+    }
+    public function courses(){
+        return view('pages.courses');
     }
 
 }

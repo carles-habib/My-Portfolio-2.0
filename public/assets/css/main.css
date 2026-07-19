@@ -911,6 +911,7 @@ body.loaded {
 	justify-content: center;
 	z-index: -1;
 }
+
 .hero-section .intro_text svg text {
 	text-transform: uppercase;
 	animation: stroke 4s;
@@ -920,6 +921,18 @@ body.loaded {
 	font-size: 240px;
 	display: inline-block;
 	opacity: 0.4;
+}
+.hero-section  svg text {
+    font-family: var(--tj-ff-russo);
+
+    text-transform: uppercase;
+    animation: stroke 4s;
+    stroke-width: 1.2;
+    stroke: #4b4b4b;
+    fill: transparent;
+    font-size: 240px;
+    display: inline-block;
+    opacity: 0.4;
 }
 @keyframes stroke {
 	0% {
@@ -976,6 +989,11 @@ body.loaded {
 }
 
 .hero-image-box img {
+	width: 100%;
+	max-width: 437px;
+	height: 475px;
+	-o-object-fit: cover;
+	object-fit: cover;
 	border-radius: 38px;
 	-webkit-transform: rotate(4.29deg);
 	-ms-transform: rotate(4.29deg);
@@ -1849,7 +1867,7 @@ body.loaded {
 }
 
 .skills-widget .skill-item .icon-box {
-	max-width: 60px;
+	max-width: 90px;
 	width: 100%;
 	margin: 0 auto 30px;
 }

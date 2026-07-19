@@ -12,7 +12,6 @@ use App\Models\QuickLinks;
 use App\Models\Services;
 use App\Models\Stories;
 use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\Calculation\Web\Service;
 
 class HomeController extends Controller
 {
@@ -38,7 +37,7 @@ class HomeController extends Controller
 
     public function hero(Request $request)
     {
-        $main = Main::find(1);
+        $main = Main::first();
         $images = Image::get();
         $funfacts = FunFact::all();
         $quicklinks = QuickLinks::all();
@@ -47,7 +46,7 @@ class HomeController extends Controller
     public function update(Request $request,  Main $main)
     {
 
-        $main = Main::findOrFail(1); // Or Main::find(1) if always ID 1
+        $main = Main::firstOrFail();
 
 //        dd($request->all());
         $validatedData = $request->validate([
@@ -67,27 +66,29 @@ class HomeController extends Controller
     //quick links edit page
     public function quicklinks(QuickLinks $quicklinks)
     {
-        dd($quicklinks);
         return view('hero-section.quicklinks', compact('quicklinks'));
     }
 
 
 
 // method to update quicklinks
-    public function quicklinksupdate(Request $request,  QuickLinks $quicklinks)
+    public function quicklinksupdate(Request $request)
     {
-        $quicklinks = QuickLinks::findOrFail(1);
+        $quicklinks = QuickLinks::firstOrFail();
 
-//        dd($request->all());
         $validatedData = $request->validate([
-            'pdf_file' => 'required|file|mimes:pdf|max:10240', // Max 10MB
-            'ig' => 'required|string|max:255',
-            'youtube' => 'required|string',
-            'linkedin' => 'required|string|max:255',
-            'github' => 'required|string|max:255'
+            'pdf_file' => 'nullable|file|mimes:pdf|max:10240', // Max 10MB
+            'ig' => 'nullable|string|max:255',
+            'youtube' => 'nullable|string|max:255',
+            'linkedin' => 'nullable|string|max:255',
+            'github' => 'nullable|string|max:255',
         ]);
 
-//        dd($validatedData);
+        if ($request->hasFile('pdf_file')) {
+            $validatedData['file_path'] = $request->file('pdf_file')->store('quicklinks', 'public');
+        }
+        unset($validatedData['pdf_file']);
+
         $quicklinks->update($validatedData);
 
         return redirect('/hero')->with('success', 'QuickLinks updated successfully.');

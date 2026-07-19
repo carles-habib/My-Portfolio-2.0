@@ -26,7 +26,7 @@
             </div>
 
             <div class="header-button">
-                <a href="#" class="btn tj-btn-primary">Hire me!</a>
+                <a href="{{route('courses')}}" class="btn tj-btn-primary">Courses</a>
             </div>
 
             <div class="menu-bar d-lg-none">

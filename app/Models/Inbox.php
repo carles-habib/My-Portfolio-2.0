@@ -19,5 +19,4 @@ class Inbox extends Model
         ];
 
 }
- $inboxes = Inbox::all();
 

@@ -14,11 +14,11 @@ class QuickLinksSeeder extends Seeder
     public function run(): void
     {
         QuickLinks::insert([
-            'file_path' =>'mycv.pdf',
-            'ig' =>'instagam.com',
-            'youtube' =>'null',
-            'linkedin' =>'null',
-            'github' =>'null',
+            'file_path' => null,
+            'ig' => null,
+            'youtube' => null,
+            'linkedin' => null,
+            'github' => null,
         ]);
     }
 }

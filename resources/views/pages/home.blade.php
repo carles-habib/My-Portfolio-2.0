@@ -27,13 +27,15 @@
 
                                 <div class="button-box d-flex flex-wrap align-items-center">
 
-                                <a href="{{asset($link->cv)}}" class="btn tj-btn-secondary wow fadeInLeft" data-wow-delay="1.5s">Download
+                                @if($link->file_path)
+                                <a href="{{asset('storage/'.$link->file_path)}}" class="btn tj-btn-secondary wow fadeInLeft" data-wow-delay="1.5s" target="_blank">Download
                                     CV</a>
+                                @endif
                                 <ul class="ul-reset social-icons wow fadeInLeft" data-wow-delay="1.6s">
-                                    <li><a href="{{$link->ig}}"><i class="fa-brands fa-instagram"></i></a></li>
-                                    <li><a href="{{$link->youtube}}"><i class="fa-brands fa-youtube"></i></a></li>
-                                    <li><a href="{{$link->linkedin}}"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                    <li><a href="{{$link->github}}"><i class="fa-brands fa-github"></i></a></li>
+                                    @if($link->ig)<li><a href="{{$link->ig}}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>@endif
+                                    @if($link->youtube)<li><a href="{{$link->youtube}}" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>@endif
+                                    @if($link->linkedin)<li><a href="{{$link->linkedin}}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>@endif
+                                    @if($link->github)<li><a href="{{$link->github}}" target="_blank"><i class="fa-brands fa-github"></i></a></li>@endif
                                 </ul>
 
                             </div>
@@ -43,7 +45,9 @@
                     </div>
                     <div class="col-md-6 order-1 order-md-2">
                         <div class="hero-image-box text-center wow fadeInRight" data-wow-delay="1.5s">
-                            <img src="{{ asset('storage/'.$image->image_path) }}" alt="" class="img-fluid">
+                            @if($image)
+                                <img src="{{ asset('storage/'.$image->image_path) }}" alt="" class="img-fluid">
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -215,7 +219,7 @@
                             <div class="button-group filter-button-group">
                                 <button data-filter="*" class="active">All</button>
                                 @foreach ($categories as $category)
-                                    <button data-filter=".{{ $category }}">{{ ucfirst($category) }}</button>
+                                    <button data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
                                 @endforeach
                                 <div class="active-bg"></div>
                             </div>
@@ -226,7 +230,7 @@
                             <div class="gutter-sizer"></div>
 
                             @foreach ($portfolios as $portfolio)
-                                <div class="portfolio-item {{ $portfolio['category'] }}">
+                                <div class="portfolio-item {{ \Illuminate\Support\Str::slug($portfolio['category']) }}">
                                     <div class="image-box">
                                         <img src="{{ asset('storage/'.$portfolio->image_path) }}" alt="{{ $portfolio['title'] }}">
                                     </div>
@@ -402,43 +406,43 @@
         <!-- TESTIMONIAL SECTION END -->
 
         <!-- BLOG SECTION STAR -->
-{{--        <section class="blog-section" id="blog-section">--}}
-{{--            <div class="container">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-md-12">--}}
-{{--                        <div class="section-header text-center">--}}
-{{--                            <h2 class="section-title wow fadeInUp" data-wow-delay=".3s">Recent Blogs</h2>--}}
-{{--                            <p class=" wow fadeInUp" data-wow-delay=".4s">We put your ideas and thus your wishes in the--}}
-{{--                                form of a unique web project that inspires--}}
-{{--                                you--}}
-{{--                                and you customers.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-lg-4 col-md-6">--}}
-{{--                        <div class="blog-item wow fadeInUp" data-wow-delay=".5s">--}}
-{{--                            <div class="blog-thumb">--}}
-{{--                                <a href="{{route('pages.blog')}}">--}}
-{{--                                    <img src="assets/img/blog/1.jpg" alt="">--}}
-{{--                                </a>--}}
-{{--                                <a href="#" class="category">Tutorial</a>--}}
-{{--                            </div>--}}
+        <section class="blog-section" id="blog-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-header text-center">
+                            <h2 class="section-title wow fadeInUp" data-wow-delay=".3s">Recent Blogs</h2>
+                            <p class=" wow fadeInUp" data-wow-delay=".4s">We put your ideas and thus your wishes in the
+                                form of a unique web project that inspires
+                                you
+                                and you customers.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog-item wow fadeInUp" data-wow-delay=".5s">
+                            <div class="blog-thumb">
+                                <a href="">
+                                    <img src="assets/img/blog/1.jpg" alt="">
+                                </a>
+                                <a href="#" class="category">Tutorial</a>
+                            </div>
 
-{{--                            <div class="blog-content">--}}
-{{--                                <div class="blog-meta">--}}
-{{--                                    <ul class="ul-reset">--}}
-{{--                                        <li><i class="fa-light fa-calendar-days"></i> Oct 01, 2022</li>--}}
-{{--                                        <li><i class="fa-light fa-comments"></i> <a href="#">Comment (0)</a></li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                                <h3 class="blog-title"><a href="{{route('pages.blog')}}">top 10 ui ux designers</a></h3>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </section>--}}
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <ul class="ul-reset">
+                                        <li><i class="fa-light fa-calendar-days"></i> Oct 01, 2022</li>
+                                        <li><i class="fa-light fa-comments"></i> <a href="#">Comment (0)</a></li>
+                                    </ul>
+                                </div>
+                                <h3 class="blog-title"><a href="">top 10 ui ux designers</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- BLOG SECTION END -->
 
         <!-- CONTACT SECTION START -->
@@ -461,41 +465,46 @@
                                         <div class="col-sm-6">
                                             <div class="form_group">
                                                 <input type="text" name="firstName" id="firstName" placeholder="First name"
-                                                       autocomplete="off">
+                                                       value="{{ old('firstName') }}" autocomplete="off">
+                                                @error('firstName') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form_group">
                                                 <input type="text" name="lastName" id="lastName" placeholder="Last name"
-                                                       autocomplete="off">
+                                                       value="{{ old('lastName') }}" autocomplete="off">
+                                                @error('lastName') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form_group">
                                                 <input type="email" name="email" id="email" placeholder="Email address"
-                                                       autocomplete="off">
+                                                       value="{{ old('email') }}" autocomplete="off">
+                                                @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form_group">
                                                 <input type="tel" name="phone" id="phone" placeholder="Phone number"
-                                                       autocomplete="off">
+                                                       value="{{ old('phone') }}" autocomplete="off">
+                                                @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form_group">
                                                 <select name="service" id="service" class="tj-nice-select">
-                                                    <option value="" selected disabled>Choose Service</option>
-                                                    <option value="Design">Web Design</option>
-                                                    <option value="Development">Web Development</option>
-                                                    <option value="uxui">UI/UX Design</option>
-                                                    <option value="app">App Design</option>
+                                                    <option value="" {{ old('service') ? '' : 'selected' }} disabled>Choose Service</option>
+                                                    @foreach($services as $service)
+                                                        <option value="{{ $service->name }}" {{ old('service') === $service->name ? 'selected' : '' }}>{{ $service->name }}</option>
+                                                    @endforeach
                                                 </select>
+                                                @error('service') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form_group">
-                                                <textarea name="message" id="message" placeholder="Message"></textarea>
+                                                <textarea name="message" id="message" placeholder="Message">{{ old('message') }}</textarea>
+                                                @error('message') <span class="text-danger">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
                                         <div class="col-12">

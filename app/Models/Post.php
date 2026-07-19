@@ -1,5 +1,4 @@
 <?php
-// app/Models/Post.php
 
 namespace App\Models;
 
@@ -7,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -64,58 +64,5 @@ class Post extends Model
     {
         return $query->where('created_at', '>=', now()->subDays($days))
             ->orderBy('views', 'desc');
-    }
-}
-
-// app/Models/Category.php
-class Category extends Model
-{
-    protected $fillable = ['name', 'slug', 'description'];
-
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    public function getPostsCountAttribute()
-    {
-        return $this->posts()->count();
-    }
-}
-
-// app/Models/Tag.php
-class Tag extends Model
-{
-    protected $fillable = ['name', 'slug'];
-
-    public function posts(): BelongsToMany
-    {
-        return $this->belongsToMany(Post::class);
-    }
-}
-
-// app/Models/Comment.php
-class Comment extends Model
-{
-    protected $fillable = ['post_id', 'user_id', 'name', 'email', 'content', 'is_approved', 'parent_id'];
-
-    public function post(): BelongsTo
-    {
-        return $this->belongsTo(Post::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function replies()
-    {
-        return $this->hasMany(Comment::class, 'parent_id');
-    }
-
-    public function scopeApproved($query)
-    {
-        return $query->where('is_approved', true);
     }
 }

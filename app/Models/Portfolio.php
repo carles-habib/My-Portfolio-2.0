@@ -28,7 +28,9 @@ class Portfolio extends Model
         'approach',
     ];
 
-
+    protected $casts = [
+        'start_date' => 'date',
+    ];
 
     public function gallery()
     {

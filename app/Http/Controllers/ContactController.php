@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewContactMessage;
 use App\Models\ContactInfo;
 use App\Models\Inbox;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -15,18 +17,30 @@ class ContactController extends Controller
             'lastName' => 'required',
             'email' => 'required| max:255| email',
             'phone' => 'required',
-            'service' => 'required',
+            'service' => 'required|string|max:255|exists:services,name',
             'message' => 'required | max:255'
         ]);
 
-        $inboxes = inbox::create($message);
+        $inbox = Inbox::create($message);
 
-        return redirect('/')->with('success', 'Message sent!');
+        $notifyEmail = ContactInfo::value('email') ?? config('mail.from.address');
+
+        if ($notifyEmail) {
+            Mail::to($notifyEmail)->send(new NewContactMessage($inbox));
+        }
+
+        return redirect()->route('home')->withFragment('contact-section')->with('success', 'Your message has been sent. Thanks for reaching out!');
     }
 
-    public function contacts(){
-        return  redirect()->route('/');
+    public function contacts()
+    {
+        return redirect()->route('home');
     }
 
+    public function ShowContact()
+    {
+        $contactInfo = ContactInfo::first();
 
+        return view('settings.contact-info', compact('contactInfo'));
+    }
 }

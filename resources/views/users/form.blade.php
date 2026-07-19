@@ -3,12 +3,9 @@
       <?php
          $id = $id ?? null;
       ?>
-      @if(isset($id))
-      {!! Form::model($data, ['route' => ['users.update', $id], 'method' => 'patch' , 'enctype' => 'multipart/form-data']) !!}
-      @else
-           <form action="<?php echo route('users.store'); ?>" method="POST" enctype="multipart/form-data">
-                   <?php echo csrf_field(); ?>
-               @endif
+      <form action="{{ isset($id) ? route('users.update', $id) : route('users.store') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @if(isset($id)) @method('PATCH') @endif
       <div class="row">
          <div class="col-xl-3 col-lg-4">
             <div class="card">
@@ -98,15 +95,12 @@
                      <div class="form-group">
                         <label class="form-label">User Role: <span class="text-danger">*</span></label>
                          <select name="user_role" class="form-control" placeholder="Select User Role">
-                             <?php
-                             $selectedRole = isset($_POST['user_role']) ? $_POST['user_role'] : ($data->user_type ?? 'user');
-                             $roles = [/* Define your roles array here */];
-
-                             foreach ($roles as $key => $role) {
-                                 $selected = ($selectedRole == $key) ? 'selected' : '';
-                                 echo "<option value='$key' $selected>$role</option>";
-                             }
-                             ?>
+                             @php
+                                 $selectedRole = old('user_role', $data->user_type ?? 'user');
+                             @endphp
+                             @foreach(\Spatie\Permission\Models\Role::pluck('name', 'id') as $key => $role)
+                                 <option value="{{ $key }}" {{ $selectedRole == $key ? 'selected' : '' }}>{{ $role }}</option>
+                             @endforeach
                          </select>                     </div>
                      <div class="form-group">
                         <label class="form-label" for="furl">Facebook Url:</label>
@@ -201,6 +195,6 @@
                </div>
             </div>
          </div>
-{{--        {!! Form::close() !!}--}}
+      </form>
    </div>
 </x-app-layout>

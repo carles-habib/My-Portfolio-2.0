@@ -5,145 +5,95 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">What is Lorem Ipsum?</h4>
+                        <h4 class="card-title">Introduction</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                        and more recently with desktop publishing software like Aldus PageMaker including versions of
-                        Lorem Ipsum.</p>
+                    <p>This Privacy Policy explains how {{ config('app.name') }} ("we", "us", or "our") collects, uses,
+                        and protects information when you visit this website. By using this site, you agree to the
+                        collection and use of information in accordance with this policy.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Why do we use it?</h4>
+                        <h4 class="card-title">Information We Collect</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like). </p>
+                    <p>When you submit a message through our contact form, we collect the information you provide,
+                        such as your name, email address, phone number, and the content of your message. If you
+                        create an account, we also store your account details. We may automatically collect basic
+                        technical information, such as your browser type and IP address, for security and analytics
+                        purposes.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Where does it come from?</h4>
+                        <h4 class="card-title">How We Use Your Information</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).</p>
+                    <p>We use the information we collect to respond to your inquiries, operate and improve this
+                        website, and maintain the security of our services. We do not sell your personal information
+                        to third parties.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Where can I get some?</h4>
+                        <h4 class="card-title">Cookies</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).</p>
+                    <p>This website may use cookies and similar technologies to keep you signed in, remember your
+                        preferences, and understand how the site is used. You can configure your browser to refuse
+                        cookies, though some features of the site may not function properly as a result.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Why do we use it?</h4>
+                        <h4 class="card-title">Data Retention</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).</p>
+                    <p>We retain personal information only for as long as necessary to fulfil the purposes described
+                        in this policy, unless a longer retention period is required or permitted by law.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Why do we use it?</h4>
+                        <h4 class="card-title">Your Rights</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).</p>
+                    <p>You may request access to, correction of, or deletion of the personal information we hold
+                        about you at any time by contacting us using the details below.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Why do we use it?</h4>
+                        <h4 class="card-title">Changes to This Policy</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).</p>
+                    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page
+                        with an updated revision date.</p>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <div class="header-title">
-                        <h4 class="card-title">Why do we use it?</h4>
+                        <h4 class="card-title">Contact Us</h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like).</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="header-title">
-                        <h4 class="card-title">Why do we use it?</h4>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                        distribution of letters, as opposed to using 'Content here, content here', making it look like
-                        readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                        their default model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                        their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                        purpose (injected humour and the like). </p>
+                    <p>If you have any questions about this Privacy Policy, please reach out through the contact form
+                        on this website.</p>
                 </div>
             </div>
         </div>

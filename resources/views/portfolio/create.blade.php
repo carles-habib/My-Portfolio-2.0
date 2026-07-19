@@ -5,185 +5,99 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>skill list
-{{--                            <a href="{{url('create-skill')}}" class="btn btn-primary float-end" >Add skill</a>--}}
-                        </h4>
+                        <h4>Add Project</h4>
                     </div>
 
                     <div class="card-body">
 
-                        <form action="{{route('storeportfolio')}}"  method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('storeportfolio') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row gx-3">
 
-
-
                                 <div class="mb-3">
-                                    <labe>
-Title
-                                    </labe>
-                                    <input type="text" name="title" class="form-control">
-                                    @error('title') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="title">Title</label>
+                                    <input type="text" id="title" name="title" value="{{ old('title') }}" class="form-control" required>
+                                    @error('title') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Project Brief
-                                    </labe>
-                                    <input type="text" name="portfolio_description" class="form-control">
-                                    @error('portfolio_description') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="description">Short Description</label>
+                                    <input type="text" id="description" name="description" value="{{ old('description') }}" class="form-control" required>
+                                    @error('description') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Project Brief
-                                    </labe>
-                                    <input type="text" name="brief" class="form-control">
-                                    @error('brief') <span class="text">{{$message}}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <labe>
-                                         Client
-                                    </labe>
-                                    <input type="text" name="client" class="form-control">
-                                    @error('client') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="portfolio_description">Project Description</label>
+                                    <textarea id="portfolio_description" name="portfolio_description" class="form-control" required>{{ old('portfolio_description') }}</textarea>
+                                    @error('portfolio_description') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Category
-                                    </labe>
-                                    <select name="category" >
+                                    <label for="client">Client</label>
+                                    <input type="text" id="client" name="client" value="{{ old('client') }}" class="form-control" required>
+                                    @error('client') <span class="text-danger">{{$message}}</span> @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="category">Category</label>
+                                    <select id="category" name="category" class="form-control" required>
+                                        <option value="">Select Category</option>
                                         @foreach($defaultCategories as $category)
-                                            <option value="{{ $category }}"
-                                                    @if(in_array($category, (array) old('category', $selectedCategories ?? [])))
-                                                        selected
-                                                @endif
-                                            >
+                                            <option value="{{ $category }}" {{ old('category') === $category ? 'selected' : '' }}>
                                                 {{ $category }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('category') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    @error('category') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Image
-                                    </labe>
-                                    <input type="file" name="image_path" class="form-control" accept="image/*">
-                                    @error('image_path'){{$message}}
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <labe>
-                                        Thumbnails1
-                                    </labe>
-                                    <input type="file" name="thumbnail1" class="form-control" accept="image/*" multiple>
-                                    @error('thumbnail1'){{$message}}
-                                    @enderror
+                                    <label for="image_path">Main Image</label>
+                                    <input type="file" id="image_path" name="image_path" class="form-control" accept="image/*" required>
+                                    @error('image_path') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        thumbnail2
-                                    </labe>
-                                    <input type="file" name="thumbnail2" class="form-control" accept="image/*" multiple>
-                                    @error('thumbnail2'){{$message}}
-                                    @enderror
+                                    <label for="gallery">Gallery Images (optional)</label>
+                                    <input type="file" id="gallery" name="gallery[]" class="form-control" accept="image/*" multiple>
+                                    @error('gallery') <span class="text-danger">{{$message}}</span> @enderror
+                                    @error('gallery.*') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        thumbnail3
-                                    </labe>
-                                    <input type="file" name="thumbnail3" class="form-control" accept="image/*" multiple>
-                                    @error('thumbnail3'){{$message}}
-                                    @enderror
+                                    <label for="live_url">Live URL</label>
+                                    <input type="url" id="live_url" name="live_url" value="{{ old('live_url') }}" class="form-control" required>
+                                    @error('live_url') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Live Preview
-                                    </labe>
-                                    <input type="url" name="preview" class="form-control">
-                                    @error('preview') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="start_date">Start Date</label>
+                                    <input type="date" id="start_date" name="start_date" value="{{ old('start_date') }}" class="form-control" required>
+                                    @error('start_date') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Start Date
-                                    </labe>
-                                    <input type="date" name="start_date" class="form-control">
-                                    @error('start_date') <span class="text">{{$message}}</span>
-                                    @enderror
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <labe>
-                                         Description
-                                    </labe>
-                                    <textarea type="text" name="description" class="form-control">
-                                    </textarea>
-                                    @error('description') <span class="text">{{$message}}</span>
-                                    @enderror
-                                </div>
-
-
-                                <div class="mb-3">
-                                    <labe>
-                                        Designer
-                                    </labe>
-                                    <textarea type="text" name="designer" class="form-control">
-                                    </textarea>
-                                    @error('designer') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="designer">Designer</label>
+                                    <input type="text" id="designer" name="designer" value="{{ old('designer') }}" class="form-control" required>
+                                    @error('designer') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        Story
-                                    </labe>
-                                    <textarea type="text" name="story" class="form-control">
-                                    </textarea>
-                                    @error('story') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="story">Story</label>
+                                    <textarea id="story" name="story" class="form-control" required>{{ old('story') }}</textarea>
+                                    @error('story') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
 
                                 <div class="mb-3">
-                                    <labe>
-                                        live url
-                                    </labe>
-                                    <textarea type="text" name="live_url" class="form-control">
-                                    </textarea>
-                                    @error('live_url') <span class="text">{{$message}}</span>
-                                    @enderror
+                                    <label for="approach">Approach</label>
+                                    <textarea id="approach" name="approach" class="form-control" required>{{ old('approach') }}</textarea>
+                                    @error('approach') <span class="text-danger">{{$message}}</span> @enderror
                                 </div>
-
-                                <div class="mb-3">
-                                    <labe>
-                                        Approach
-                                    </labe>
-                                    <textarea type="text" name="approach" class="form-control">
-                                    </textarea>
-                                    @error('approach') <span class="text">{{$message}}</span>
-                                    @enderror
-                                </div>
-
-                                <br>
 
                                 <div class="col-12">
                                     <div class="form_btn">
-                                        <button class="btn btn-secondary">Discard</button>
-
-                                        <button type="submit" class="btn btn-primary">Send Message</button>
+                                        <a href="{{ route('portfolios') }}" class="btn btn-secondary">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Save</button>
                                     </div>
                                 </div>
                             </div>

@@ -8,81 +8,57 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //code here
+        return redirect()->route('role.permission.list');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
+    public function create()
     {
-        $data = $request->all();
-        $view = view('role-permission.form-permission')->render();
-        return response()->json(['data' =>  $view, 'status'=> true]);
+        return view('role-permission.permission-form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //code here
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:permissions,name',
+        ]);
+
+        Permission::create(['name' => $validated['name'], 'guard_name' => 'web']);
+
+        return redirect()->route('role.permission.list')->with('success', 'Permission created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //code here
+        return redirect()->route('permission.edit', $id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-       //code here
+        $permission = Permission::findOrFail($id);
+
+        return view('role-permission.permission-form', compact('permission'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //code here
+        $permission = Permission::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:permissions,name,'.$permission->id,
+        ]);
+
+        $permission->update(['name' => $validated['name']]);
+
+        return redirect()->route('role.permission.list')->with('success', 'Permission updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //code here
+        $permission = Permission::findOrFail($id);
+        $permission->delete();
+
+        return redirect()->route('role.permission.list')->with('success', 'Permission deleted successfully.');
     }
 }

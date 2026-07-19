@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Skills;
+use App\Models\User;
 
 class SkillsSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class SkillsSeeder extends Seeder
     {
      Skills::create([
          'name' => 'PHP',
-         'user_id' => '1',
+         'user_id' => User::query()->value('id'),
          'image' => 'skills/html.png'
 
      ]);

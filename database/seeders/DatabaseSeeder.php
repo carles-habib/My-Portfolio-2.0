@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SkillsSeeder::class);
         $this->call(ServiceSeeder::class);
         $this->call(FunFactsSeeder::class);
+        $this->call(PortfolioCategorySeeder::class);
         $this->call(PortfolioSeeder::class);
         $this->call(StoriesSeeder::class);
     }

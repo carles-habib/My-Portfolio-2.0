@@ -8,10 +8,15 @@ class Category extends Model
 {
     protected $table = 'categories';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'slug', 'description'];
 
-    public function blogs()
+    public function posts()
     {
-        return $this->hasMany(Blog::class);
+        return $this->hasMany(Post::class);
+    }
+
+    public function getPostsCountAttribute()
+    {
+        return $this->posts()->count();
     }
 }

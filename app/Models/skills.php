@@ -13,7 +13,8 @@ class skills extends Model
     protected $fillable = [
         "id",
         "name",
-        "image"
+        "image",
+        "user_id"
     ];
     public function getImageUrlAttribute()
     {

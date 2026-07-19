@@ -19,4 +19,9 @@ class AuthHelper {
         return $session;
     }
 
+    public static function checkRolePermission($role, string $permissionName): bool
+    {
+        return $role->hasPermissionTo($permissionName);
+    }
+
 }

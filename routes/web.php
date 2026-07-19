@@ -5,9 +5,10 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\expeduController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FunfactsController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\PortfolioCategoryController;
 use App\Http\Controllers\PortfolioController;
-use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\Security\PermissionController;
 use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
@@ -19,33 +20,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\MainController;
-use App\Livewire\ImageUpload;
 
-
-//Route::get('/', function()
-//{
-//    return View::make('pages.home',[MainController::class, 'show']);
-//});
 
 require __DIR__.'/auth.php';
 
-//Route::get('/image-upload',ImageUpload::class);
-Route::get('/',[MainController::class, 'index']);
-//Route::get('/image/{id}',[ImageController::class,'showImage'])->name('showImage');
-Route::resource('images', ImageController::class);
-
-
-Route::get('/blog', function()
-{
-    return View::make('pages.blog');
-});
-
-Route::get('/blog-details', function()
-{
-    return View::make('pages.blog-details');
-});
-
-
+Route::get('/',[MainController::class, 'index'])->name('home');
+Route::get('/courses',[MainController::class, 'courses'])->name('courses');
+Route::resource('images', ImageController::class)->only(['create', 'store', 'show', 'destroy']);
 
 //Contact Routing
 
@@ -74,8 +55,13 @@ Route::group(['prefix' => 'menu-style'], function() {
 Route::get('hero', [HomeController::class, 'hero'])->name('hero');
 Route::post('images.store', [ImageController::class, 'store'])->name('images.store');
 Route::put('/hero', [HomeController::class, 'update'])->name('hero.update');
-Route::get('/quicklinks.edit/{$id}', [HomeController::class, 'quicklinks'])->name('quicklinks.edit');
+Route::get('/quicklinks/{quicklinks}', [HomeController::class, 'quicklinks'])->name('quicklinks.edit');
 Route::put('/quicklinks', [HomeController::class, 'quicklinksupdate'])->name('quicklinks.update');
+Route::get('/funfacts/create', [FunfactsController::class, 'create'])->name('funfacts.create');
+Route::post('/funfacts', [FunfactsController::class, 'store'])->name('funfacts.store');
+Route::get('/funfacts/{funfact}/edit', [FunfactsController::class, 'edit'])->name('funfacts.edit');
+Route::put('/funfacts/{funfact}', [FunfactsController::class, 'update'])->name('funfacts.update');
+Route::delete('/funfacts/{funfact}', [FunfactsController::class, 'destroy'])->name('funfacts.destroy');
 Route::post('/portfolio/filter', [PortfolioController::class, 'filter'])->name('portfolio.filter');
 
 //service section Routes
@@ -86,11 +72,12 @@ Route::delete('/service/{id}', [ServiceController::class, 'destroy'])->name('ser
 
 
 //Projects section Route
-Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('hero.show');
+Route::get('/portfolio/{id}', [PortfolioController::class, 'show'])->name('portfolio.show');
 Route::get('projects.create', [PortfolioController::class, 'create'])->name('project.create');
 Route::post('storeproject', [PortfolioController::class, 'storeportfolio'])->name('storeportfolio');
 Route::delete('/portfolio/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
 Route::get('portfolios.list', [PortfolioController::class, 'list'])->name('portfolios');
+Route::resource('portfolio-categories', PortfolioCategoryController::class)->except(['show']);
 
 //Experience and Education section Routes
 Route::get('exp-edu.list', [HomeController::class, 'expedu'])->name('exp-edu.list');
@@ -98,7 +85,7 @@ Route::get('exp-edu.create', [HomeController::class, 'addexpedu'])->name('exp-ed
 Route::post('expstore',[expeduController::class, 'expstore'])->name('expstore');
 Route::post('edustore',[expeduController::class, 'edustore'])->name('edustore');
 Route::delete('/exp/{id}', [expeduController::class, 'expdestroy'])->name('experience.destroy');
-Route::delete('/edu/{id}', [expeduController::class, 'expdestroy'])->name('education.destroy');
+Route::delete('/edu/{id}', [expeduController::class, 'edudestroy'])->name('education.destroy');
 
 //Stories Section Routes
 Route::get('stories', [HomeController::class, 'stories'])->name('stories');
@@ -108,16 +95,18 @@ Route::delete('/stories/{id}', [StoriesController::class, 'destroy'])->name('sto
 
 
 
-//Blogs Section Routes for view
-Route::get('blog',[MainController::class, 'blog'])->name('pages.blog');
-Route::get('blog-detail',[MainController::class, 'blogdetail'])->name('pages.blog-detail');
-
-
-
-//Blogs Section Routes for Dashboard
-Route::resource('blogs', BlogController::class);
-Route::get('blogs.create', [BlogController::class, 'addblog'])->name('blogs.create');
-Route::get('blogs', [BlogController::class, 'blogs'])->name('blogs');
+//Blog Routes (public listing/detail + dashboard create/edit, backed by the Post model)
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('index');
+    Route::get('/create', [BlogController::class, 'create'])->name('create');
+    Route::post('/', [BlogController::class, 'store'])->name('store');
+    Route::get('/category/{category:slug}', [BlogController::class, 'category'])->name('category');
+    Route::get('/tag/{tag:slug}', [BlogController::class, 'tag'])->name('tag');
+    Route::get('/{post:slug}/edit', [BlogController::class, 'edit'])->name('edit');
+    Route::put('/{post:slug}', [BlogController::class, 'update'])->name('update');
+    Route::delete('/{post:slug}', [BlogController::class, 'destroy'])->name('destroy');
+    Route::get('/{post:slug}', [BlogController::class, 'show'])->name('show');
+});
 
 
 
@@ -126,9 +115,7 @@ Route::get('skill', [SkillsController::class, 'skills'])->name('skill');
 Route::get('create-skill', [SkillsController::class, 'create'])->name('create-skill');
 Route::post('skillstore', [SkillsController::class, 'skillstore'])->name('skillstore');
 Route::get('/skills/{skills}/edit', [SkillsController::class, 'edit'])->name('skills.edit');
-Route::put('/skills/{skill}', [SkillsController::class, 'update'])
-    ->middleware('can:update,skill')->name('skills.update');
-//Route::put('/skills/{skills}', [SkillsController::class, 'update'])->name('skills.update');
+Route::put('/skills/{skills}', [SkillsController::class, 'update'])->name('skills.update');
 Route::delete('/skills/{id}', [SkillsController::class, 'destroy'])->name('skills.destroy');
 
 
@@ -170,6 +157,7 @@ Route::group(['prefix' => 'errors'], function() {
 Route::group(['middleware' => 'auth'], function () {
     // Permission Module
     Route::get('/role-permission',[RolePermission::class, 'index'])->name('role.permission.list');
+    Route::post('/role-permission',[RolePermission::class, 'store'])->name('role.permission.store');
     Route::resource('permission',PermissionController::class);
     Route::resource('role', RoleController::class);
 

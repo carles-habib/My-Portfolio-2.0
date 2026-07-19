@@ -43,7 +43,7 @@
             </div>
         </div>
 
-{{--        @if($portfolio->gallery->count() > 0)--}}
+        @if($portfolio->gallery->count() > 0)
             <div class="portfolio_gallery owl-carousel">
                 @foreach($portfolio->gallery as $galleryItem)
                     <div class="gallery_item">
@@ -53,11 +53,11 @@
             </div>
         @endif
 
-        @if($portfolio->full_description)
+        @if($portfolio->portfolio_description)
             <div class="portfolio_description">
                 <h2 class="title">Project Description</h2>
                 <div class="desc">
-                    {!! nl2br(e($portfolio->full_description)) !!}
+                    {!! nl2br(e($portfolio->portfolio_description)) !!}
                 </div>
             </div>
         @endif

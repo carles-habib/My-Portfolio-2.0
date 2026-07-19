@@ -31,7 +31,7 @@ class PortfolioSeeder extends Seeder
                 'title' =>'test',
                 'description' =>'Brief Description',
                 'portfolio_description' =>'a browser extension for Chrome, Firefox, and Edge designed to instantly populate web form fields with random, dummy data',
-                'category' => 'WEB DESIGN',
+                'category' => 'Web Design',
                 'client' =>'freelance',
                 'start_date' => '2025/10/2',
                 'designer' =>'carles',

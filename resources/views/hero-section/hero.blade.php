@@ -1,168 +1,181 @@
 <x-app-layout :assets="$assets ?? []">
+    <div class="container-fluid">
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="row">
-            <div class="col-xl-7 col-lg-8">
+            <div class="col-lg-12">
                 <div class="card">
-        <div class="container">
-            <h1 class="mb-4">Image Gallery</h1>
-
-            <a href="{{ route('images.create') }}" class="btn btn-primary mb-4">Upload New Image</a>
-
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            <div class="row">
-                @foreach ($images as $image)
-                    <div class="col-md-6 mb-4">
-                        <div class="card">
-                            <img src="{{  asset('storage/'.$image->image_path) }}" class="card-img-top" alt="Uploaded image">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                     <form action="{{ route('images.destroy', $image->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                        @endforeach
-                                    </form>
-                                </div>
-                            </div>
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Main</h4>
                         </div>
                     </div>
-            </div>
-        </div>
-            </div>
-            </div>
-
-        </div>
-                <div class="row">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Main </h4>
+                    <div class="card-body">
+                        <form action="{{ route('hero.update', $main->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="name">I am: <span class="text-danger">*</span></label>
+                                    <input type="text" id="name" name="name" value="{{ old('name', $main->name) }}" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="title">Title: <span class="text-danger">*</span></label>
+                                    <input type="text" id="title" name="title" value="{{ old('title', $main->title) }}" class="form-control" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="subtitle">SubTitle:</label>
+                                    <input type="text" id="subtitle" name="subtitle" value="{{ old('subtitle', $main->subtitle) }}" class="form-control">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="form-label" for="description">Description: <span class="text-danger">*</span></label>
+                                    <textarea id="description" name="description" class="form-control" required>{{ old('description', $main->description) }}</textarea>
                                 </div>
                             </div>
-                                <div class="form-group">
-                                    <form action="{{ route('hero.update', $main->id) }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="card-body">
-                                            <div class="new-user-info">
-                                                <div class="form-group col-md-6">
-                                                    <label class="form-label" for="name">I am: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="name" value="" class="form-control" placeholder="{{$main->name}}" required>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="form-label" for="title">Title: <span class="text-danger">*</span></label>
-                                                    <input type="text" name="title" value="" class="form-control" placeholder="{{$main->title}}" required>
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label class="form-label" for="mobno">SubTitle: </label>
-                                                    <input type="text" name="phone_number" value="" class="form-control" placeholder="{{$main->subtitle}}" required>
-                                                </div>
-                                                <div class="form-group col-md-9">
-                                                    <label class="form-label" for="description">Description: <span class="text-danger">*</span></label>
-                                                    <textarea type="text" name="description" value="" class="form-control" placeholder="{{$main->desc}}" required>
-                                                    </textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-secondary">Discard</button>
-                                        <button type="submit" class="btn btn-primary"> Update </button>
-                                    </form>
-                              </div>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                        </div>
-
+                        </form>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-9 col-lg-8">
-                        <div class="card">
-                            <div class="card-header d-flex justify-content-between">
-                                <div class="header-title">
-                                    <h4 class="card-title">Funfacts</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Image Gallery</h4>
+                        </div>
+                        <a href="{{ route('images.create') }}" class="btn btn-primary">Upload New Image</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @forelse ($images as $image)
+                                <div class="col-md-3 col-sm-6 mb-4">
+                                    <div class="card h-100">
+                                        <img src="{{ asset('storage/'.$image->image_path) }}" class="card-img-top" alt="Uploaded image">
+                                        <div class="card-body d-flex justify-content-end">
+                                            <form action="{{ route('images.destroy', $image->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
+                            @empty
+                                <div class="col-12">
+                                    <p class="mb-0">No images uploaded yet.</p>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            </div>
-                            <div class="card-body">
-                                <table class="table table-striped table-boarded">
-                                    <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Top</th>
-                                        <th>Bottom</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($funfacts as $funfact)
-
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Funfacts</h4>
+                        </div>
+                        <a href="{{ route('funfacts.create') }}" class="btn btn-sm btn-primary">Add Funfact</a>
+                    </div>
+                    <div class="card-body">
+                        <div style="overflow-x: auto;">
+                            <table class="table table-striped table-boarded">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Top</th>
+                                    <th>Bottom</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse($funfacts as $funfact)
                                     <tr>
                                         <td>{{$funfact->no}}</td>
                                         <td>{{$funfact->top}}</td>
                                         <td>{{$funfact->bottom}}</td>
                                         <td>
+                                            <a href="{{ route('funfacts.edit', $funfact) }}" class="btn btn-sm btn-success">Edit</a>
+                                            <a href="#" class="btn btn-sm btn-danger" onclick="event.preventDefault(); if(confirm('Are you sure?')) { document.getElementById('delete-funfact-{{ $funfact->id }}').submit(); }">Delete</a>
+                                            <form id="delete-funfact-{{ $funfact->id }}" action="{{ route('funfacts.destroy', $funfact) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
                                         </td>
                                     </tr>
-
-                                    @endforeach
-                                    </tbody>
-                                </table>
-
-                                </div>
-
-
-                            </div>
+                                @empty
+                                    <tr>
+                                        <td colspan="4">No funfacts yet.</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
                         </div>
-
-                </div>
-    <div class="row">
-        <div class="col-xl-9 col-lg-8">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <div class="header-title">
-                        <h4 class="card-title">Quicklinks</h4>
                     </div>
-
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped table-boarded">
-                        <thead>
-                        <tr>
-                            <th>CV</th>
-                            <th>IG</th>
-                            <th>youtube</th>
-                            <th>github</th>
-                            <th>linkedin</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($quicklinks as $quicklink)
+            </div>
 
-                            <tr>
-                                <td>{{$quicklink->file_path}}</td>
-                                <td>{{$quicklink->ig}}</td>
-                                <td>{{$quicklink->youtube}}</td>
-                                <td>{{$quicklink->github}}</td>
-                                <td>{{$quicklink->linkedin}}</td>
-                                <td>
-                                    <a href="{{ route('quicklinks.edit', $quicklink->id) }}" class="btn btn-success">Edit</a>
-                                </td>
-                            </tr>
-
-                        @endforeach
-                        </tbody>
-                    </table>
-
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Quicklinks</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div style="overflow-x: auto;">
+                            <table class="table table-striped table-boarded">
+                                <thead>
+                                <tr>
+                                    <th>CV</th>
+                                    <th>IG</th>
+                                    <th>Youtube</th>
+                                    <th>GitHub</th>
+                                    <th>LinkedIn</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @forelse($quicklinks as $quicklink)
+                                    <tr>
+                                        <td>
+                                            @if($quicklink->file_path)
+                                                <a href="{{ asset('storage/'.$quicklink->file_path) }}" target="_blank">View CV</a>
+                                            @endif
+                                        </td>
+                                        <td>{{$quicklink->ig}}</td>
+                                        <td>{{$quicklink->youtube}}</td>
+                                        <td>{{$quicklink->github}}</td>
+                                        <td>{{$quicklink->linkedin}}</td>
+                                        <td>
+                                            <a href="{{ route('quicklinks.edit', $quicklink->id) }}" class="btn btn-sm btn-success">Edit</a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6">No quicklinks yet.</td>
+                                    </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-
-
             </div>
         </div>
 
     </div>
-
 </x-app-layout>

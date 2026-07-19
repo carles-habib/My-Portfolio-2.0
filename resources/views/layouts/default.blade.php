@@ -93,6 +93,8 @@
 
 <script src="{{asset('assets/js/main.js')}}"></script>
 
+@include('partials.flash-success-modal')
+
 </body>
 
 </html>

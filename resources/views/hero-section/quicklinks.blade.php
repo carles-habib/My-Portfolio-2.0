@@ -5,73 +5,64 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>skill list
-{{--                            <a href="{{url('create-skill')}}" class="btn btn-primary float-end" >Add skill</a>--}}
-</h4>
-</div>
+                        <h4>Quick Links</h4>
+                    </div>
 
-<div class="card-body">
+                    <div class="card-body">
 
-    <form action="{{route('quicklinks.update')}}"  method="POST">
-        @csrf
-        <div class="row gx-3">
+                        <form action="{{route('quicklinks.update')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="row gx-3">
 
-            <div class="mb-3">
-                <labe>
-                    CV
-                </labe>
-                <input type="file" name="file_path" class="form-control">
-                @error('file_path') <span class="text">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <labe>
-                    Instagram
-                </labe>
-                <input type="url" name="ig" class="form-control">
-                @error('ig'){{$message}}
-                @enderror
-            </div>
-            <div class="mb-3">
-                <labe>
-                    Youtube
-                </labe>
-                <input type="url" name="youtube" class="form-control">
-                @error('youtube'){{$message}}
-                @enderror
-            </div>
-            <div class="mb-3">
-                <labe>
-                    linkedin
-                </labe>
-                <input type="url" name="linkedin" class="form-control">
-                @error('linkedin'){{$message}}
-                @enderror
-            </div>
-            <div class="mb-3">
-                <labe>
-                    github
-                </labe>
-                <input type="url" name="github" class="form-control">
-                @error('github'){{$message}}
-                @enderror
-            </div>
-            <br>
+                                <div class="mb-3">
+                                    <label>CV (PDF)</label>
+                                    @if($quicklinks->file_path)
+                                        <div class="mb-2">
+                                            <a href="{{ asset('storage/'.$quicklinks->file_path) }}" target="_blank">Current CV</a>
+                                        </div>
+                                    @endif
+                                    <input type="file" name="pdf_file" class="form-control" accept="application/pdf">
+                                    @error('pdf_file') <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label>Instagram</label>
+                                    <input type="text" name="ig" class="form-control" value="{{ old('ig', $quicklinks->ig) }}">
+                                    @error('ig') <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label>Youtube</label>
+                                    <input type="text" name="youtube" class="form-control" value="{{ old('youtube', $quicklinks->youtube) }}">
+                                    @error('youtube') <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label>LinkedIn</label>
+                                    <input type="text" name="linkedin" class="form-control" value="{{ old('linkedin', $quicklinks->linkedin) }}">
+                                    @error('linkedin') <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label>GitHub</label>
+                                    <input type="text" name="github" class="form-control" value="{{ old('github', $quicklinks->github) }}">
+                                    @error('github') <span class="text-danger">{{$message}}</span>
+                                    @enderror
+                                </div>
 
-            <div class="col-12">
-                <div class="form_btn">
-                    <button class="btn btn-secondary">Discard</button>
+                                <div class="col-12">
+                                    <div class="form_btn">
+                                        <a href="{{ route('hero') }}" class="btn btn-secondary">Cancel</a>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
 
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </form>
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
+    </div>
 </x-app-layout>

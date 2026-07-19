@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateSkillRequest;
 use App\Models\skills;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Gate;
 
 class SkillsController extends Controller
 {
@@ -36,6 +34,8 @@ class SkillsController extends Controller
             $validated['image'] = $imagePath;
         }
 
+        $validated['user_id'] = auth()->id();
+
         // Create skill
         Skills::create($validated);
 
@@ -45,38 +45,30 @@ class SkillsController extends Controller
 
     public function edit(skills $skills)
     {
-        // Authorization check (if using policies/gates)
-        // $this->authorize('update', $skill);
-
         return view('skill-section.edit', compact('skills'));
     }
 
 
     public function update(Request  $request, skills $skills)
     {
-
-//        $this->authorize('update', $skills);
-        \Log::info('Current user ID: ' . auth()->id());
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // Add other validation rules
         ]);
 
         if ($request->hasFile('image')) {
             // Delete old image if exists
             if ($skills->image) {
-                Storage::delete($skills->image);
+                Storage::disk('public')->delete($skills->image);
             }
 
             // Store new image
-            $validated['image'] = $request->file('image')->store('skills');
+            $validated['image'] = $request->file('image')->store('skills', 'public');
         }
 
         // Update the skill
         $skills->update($validated);
-        return redirect()->route('skills.update')
+        return redirect()->route('skill')
             ->with('success', 'Skill updated successfully');
     }
 

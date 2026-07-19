@@ -18,13 +18,12 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:width=437,height=475',
+        $validated = $request->validate([
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        if ($request->hasFile('image_path')) {
-            $imagePath = $request->file('image_path')->store('portfolio', 'public');
-            $validated['image_path'] = $imagePath;
-        }
+
+        $validated['image_path'] = $request->file('image_path')->store('portfolio', 'public');
+
         Image::create($validated);
         return redirect()->route('hero')
             ->with('success', 'Image uploaded successfully.');
@@ -32,15 +31,15 @@ class ImageController extends Controller
 
     public function show(Image $image)
     {
-        return view('images.show', compact('image'));
+        return view('hero-section.uploadimage', compact('image'));
     }
 
     public function destroy(Image $image)
     {
-        Storage::delete('public/' . $image->image_path);
+        Storage::disk('public')->delete($image->image_path);
         $image->delete();
 
-        return redirect()->route('images.index')
+        return redirect()->route('hero')
             ->with('success', 'Image deleted successfully.');
     }
 

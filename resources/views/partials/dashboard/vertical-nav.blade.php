@@ -116,6 +116,18 @@
                     <span class="item-name">Add Project</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {{activeRoute(route('portfolio-categories.index'))}}" href="{{route('portfolio-categories.index')}}">
+                    <i class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
+                            <g>
+                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                    </i>
+                    <span class="item-name">Categories</span>
+                </a>
+            </li>
         </ul>
     </li>
 
@@ -266,7 +278,7 @@
         </a>
         <ul class="sub-nav collapse" id="sidebar-blogs" data-bs-parent="#sidebar">
             <li class=" nav-item">
-                <a class="nav-link {{activeRoute(route('blogs'))}}" href="{{route('blogs')}}">
+                <a class="nav-link {{activeRoute(route('blog.index'))}}" href="{{route('blog.index')}}">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -274,11 +286,11 @@
                             </g>
                         </svg>
                     </i>
-                    <span class="item-name">Stories List</span>
+                    <span class="item-name">Blog List</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  {{activeRoute(route('blogs.create'))}}" href="{{route('blogs.create')}}">
+                <a class="nav-link  {{activeRoute(route('blog.create'))}}" href="{{route('blog.create')}}">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>
@@ -286,7 +298,7 @@
                             </g>
                         </svg>
                     </i>
-                    <span class="item-name">Add Story</span>
+                    <span class="item-name">Add Post</span>
                 </a>
             </li>
         </ul>
