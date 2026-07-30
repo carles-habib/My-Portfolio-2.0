@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan *)",
+      "Bash(grep -nE '\\\\$post|\\\\$blog' resources/views/pages/blog-details.blade.php)",
+      "Bash(cp resources/views/pages/courses.blade.php \"C:/Users/marti/AppData/Local/Temp/claude/C--Users-marti-Local-Sites-portfolio-app/1fc0f260-32ef-4196-8572-f73bef53dafe/scratchpad/courses.blade.php.bak\")",
+      "Bash(rm resources/views/pages/courses.blade.php)",
+      "Bash(php -l routes/web.php)",
+      "Bash(php -r ' *)",
+      "Bash(composer config *)",
+      "Bash(composer audit *)"
+    ]
+  }
+}

@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-    protected $fillable = ['post_id', 'user_id', 'name', 'email', 'content', 'is_approved', 'parent_id'];
+    // `is_approved` is deliberately not fillable: whenever a public comment
+    // endpoint is built, moderation must be set server-side, never from input.
+    protected $fillable = ['post_id', 'user_id', 'name', 'email', 'content', 'parent_id'];
+
+    protected $casts = [
+        'is_approved' => 'boolean',
+    ];
 
     public function post(): BelongsTo
     {

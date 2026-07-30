@@ -11,7 +11,6 @@ class Portfolio extends Model
 
     protected $table = 'portfolios';
     protected $fillable = [
-        'id',
         'title',
         'description',
         'portfolio_description',

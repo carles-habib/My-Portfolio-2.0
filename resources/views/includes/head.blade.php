@@ -15,22 +15,28 @@
 <meta name="description" content="" />
 
 <!-- Site Title -->
-<title>{{env('app_name')}} - Personal Portfolio</title>
+<title>
+    @hasSection('title')
+        @yield('title') | {{ config('app.name') }}
+    @else
+        {{ config('app.name') }} — Web Developer
+    @endif
+</title>
 
 <!-- Place favicon.ico in the root directory -->
-<link rel="apple-touch-icon" href="./assets/img/favicon.png" />
-<link rel="shortcut icon" type="image/png" href="./assets/img/favicon.png" />
+<link rel="apple-touch-icon" href="{{ asset('assets/img/favicon.png') }}" />
+<link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" />
 
 <!-- CSS here -->
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome-pro.min.css">
-<link rel="stylesheet" href="assets/css/flaticon_gerold.css">
-<link rel="stylesheet" href="assets/css/nice-select.css">
-<link rel="stylesheet" href="assets/css/backToTop.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="assets/css/odometer-theme-default.css">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/font-awesome-pro.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/flaticon_gerold.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/backToTop.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/odometer-theme-default.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
 
-<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
+<link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">

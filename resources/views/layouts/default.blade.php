@@ -52,17 +52,18 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="footer-logo-box">
-                    <a href="#"><img src="assets/img/logo/logo.png" alt=""></a>
+                    <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo/logo.png') }}" alt="{{ config('app.name') }}"></a>
                 </div>
                 <div class="footer-menu">
+                    @php $home = request()->routeIs('home') ? '' : route('home'); @endphp
                     <nav>
                         <ul>
-                            <li><a href="#services-section">Services</a></li>
-                            <li><a href="#works-section">Works</a></li>
-                            <li><a href="#resume-section">Resume</a></li>
-                            <li><a href="#skills-section">Skills</a></li>
-                            <li><a href="#testimonials-section">Testimonials</a></li>
-                            <li><a href="#contact-section">Contact</a></li>
+                            <li><a href="{{ $home }}#services-section">Services</a></li>
+                            <li><a href="{{ $home }}#works-section">Works</a></li>
+                            <li><a href="{{ $home }}#resume-section">Resume</a></li>
+                            <li><a href="{{ $home }}#skills-section">Skills</a></li>
+                            <li><a href="{{ $home }}#testimonials-section">Testimonials</a></li>
+                            <li><a href="{{ $home }}#contact-section">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -75,19 +76,19 @@
 
 
 <!-- CSS here -->
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/nice-select.min.js"></script>
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/js/nice-select.min.js') }}"></script>
 <script src="{{asset("assets/js/backToTop.js")}}"></script>
-<script src="assets/js/smooth-scroll.js"></script>
-<script src="assets/js/appear.min.js"></script>
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/gsap.min.js"></script>
-<script src="assets/js/one-page-nav.js"></script>
-<script src="assets/js/lightcase.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/isotope.pkgd.min.js"></script>
-<script src="assets/js/odometer.min.js"></script>
+<script src="{{ asset('assets/js/smooth-scroll.js') }}"></script>
+<script src="{{ asset('assets/js/appear.min.js') }}"></script>
+<script src="{{ asset('assets/js/wow.min.js') }}"></script>
+<script src="{{ asset('assets/js/gsap.min.js') }}"></script>
+<script src="{{ asset('assets/js/one-page-nav.js') }}"></script>
+<script src="{{ asset('assets/js/lightcase.js') }}"></script>
+<script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('assets/js/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/js/odometer.min.js') }}"></script>
 <script src="{{asset("assets/js/magnific-popup.js")}}"></script>
 <script src="{{asset("assets/js/scrollTrigger.min.js")}}"></script>
 

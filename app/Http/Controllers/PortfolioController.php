@@ -43,7 +43,7 @@ class PortfolioController extends Controller
             'description' => 'required|string',
             'portfolio_description' => 'required|string',
             'category' => 'required|string|max:255|exists:portfolio_categories,name',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8192',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
             'client' => 'required|string|max:255',
             'live_url' => 'required|string|max:255',
             'start_date' => 'required|date',
@@ -51,7 +51,7 @@ class PortfolioController extends Controller
             'designer' => 'required|string',
             'approach' => 'required|string',
             'gallery' => 'nullable|array',
-            'gallery.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:8192',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         $validated['image_path'] = $request->file('image_path')->store('portfolio', 'public');

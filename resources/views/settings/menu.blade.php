@@ -15,23 +15,9 @@
                                         @csrf
                                         @method('PUT')
 
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="name">Skill Name</label>--}}
-{{--                                            <input type="text" class="form-control" id="name" name="name"--}}
-{{--                                                   value="{{ old('name', $main->name) }}" required>--}}
-{{--                                        </div>--}}
-
                                         <div class="form-group">
                                             <label for="image">Skill Image</label>
                                             <input type="file" class="form-control" id="image" name="image">
-
-{{--                                            @if($main->image)--}}
-{{--                                                <div class="mt-2">--}}
-{{--                                                    <small>Current Image:</small>--}}
-{{--                                                    <img src="{{ Storage::url($main->image) }}" alt="{{ $main->name }}"--}}
-{{--                                                         style="max-width: 100px; max-height: 100px;">--}}
-{{--                                                </div>--}}
-{{--                                            @endif--}}
                                         </div>
 
                                     </form>

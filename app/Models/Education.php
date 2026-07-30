@@ -10,7 +10,6 @@ class Education extends Model
     use HasFactory;
     protected $table = 'education';
     protected $fillable = [
-        'id',
         'startDate',
         'endDate',
         'title',

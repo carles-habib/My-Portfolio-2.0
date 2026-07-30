@@ -13,6 +13,8 @@ class ContactController extends Controller
     public function submitmessage(Request $request)
     {
         $message = $request->validate([
+            // Honeypot — a real browser leaves this empty.
+            'website' => 'prohibited',
             'firstName' => 'required',
             'lastName' => 'required',
             'email' => 'required| max:255| email',
@@ -20,6 +22,8 @@ class ContactController extends Controller
             'service' => 'required|string|max:255|exists:services,name',
             'message' => 'required | max:255'
         ]);
+
+        unset($message['website']);
 
         $inbox = Inbox::create($message);
 

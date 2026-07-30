@@ -16,30 +16,30 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="hero-content-box">
-                            @foreach($main as $data)
-                            <span class="hero-sub-title wow fadeInLeft" data-wow-delay="1.1s">{{$data->name}}</span>
-                            <h1 class="hero-title wow fadeInLeft" data-wow-delay="1.2s">{{$data->title}} <br>{{$data->subtitle}}
+                            @if($main)
+                            <span class="hero-sub-title wow fadeInLeft" data-wow-delay="1.1s">{{$main->name}}</span>
+                            <h1 class="hero-title wow fadeInLeft" data-wow-delay="1.2s">{{$main->title}} <br>{{$main->subtitle}}
                             </h1>
 
-                            <p class="lead wow fadeInLeft" data-wow-delay="1.4s">{{$data->description}}</p>
-                            @endforeach
-                                @foreach($quicklinks as $link)
+                            <p class="lead wow fadeInLeft" data-wow-delay="1.4s">{{$main->description}}</p>
+                            @endif
 
-                                <div class="button-box d-flex flex-wrap align-items-center">
+                            @if($quicklinks)
+                            <div class="button-box d-flex flex-wrap align-items-center">
 
-                                @if($link->file_path)
-                                <a href="{{asset('storage/'.$link->file_path)}}" class="btn tj-btn-secondary wow fadeInLeft" data-wow-delay="1.5s" target="_blank">Download
+                                @if($quicklinks->file_path)
+                                <a href="{{asset('storage/'.$quicklinks->file_path)}}" class="btn tj-btn-secondary wow fadeInLeft" data-wow-delay="1.5s" target="_blank">Download
                                     CV</a>
                                 @endif
                                 <ul class="ul-reset social-icons wow fadeInLeft" data-wow-delay="1.6s">
-                                    @if($link->ig)<li><a href="{{$link->ig}}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>@endif
-                                    @if($link->youtube)<li><a href="{{$link->youtube}}" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>@endif
-                                    @if($link->linkedin)<li><a href="{{$link->linkedin}}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>@endif
-                                    @if($link->github)<li><a href="{{$link->github}}" target="_blank"><i class="fa-brands fa-github"></i></a></li>@endif
+                                    @if($quicklinks->ig)<li><a href="{{$quicklinks->ig}}" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>@endif
+                                    @if($quicklinks->youtube)<li><a href="{{$quicklinks->youtube}}" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>@endif
+                                    @if($quicklinks->linkedin)<li><a href="{{$quicklinks->linkedin}}" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a></li>@endif
+                                    @if($quicklinks->github)<li><a href="{{$quicklinks->github}}" target="_blank"><i class="fa-brands fa-github"></i></a></li>@endif
                                 </ul>
 
                             </div>
-                                @endforeach
+                            @endif
 
                         </div>
                     </div>
@@ -424,7 +424,7 @@
                         <div class="blog-item wow fadeInUp" data-wow-delay=".5s">
                             <div class="blog-thumb">
                                 <a href="">
-                                    <img src="assets/img/blog/1.jpg" alt="">
+                                    <img src="{{ asset('assets/img/blog/1.jpg') }}" alt="">
                                 </a>
                                 <a href="#" class="category">Tutorial</a>
                             </div>
@@ -461,6 +461,11 @@
                             <div class="tj-contact-form">
                                 <form action="{{route('submitmessage')}}"  method="POST">
                                     @csrf
+                                    {{-- Honeypot: hidden from people, filled in by bots. --}}
+                                    <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                                        <label for="website">Website</label>
+                                        <input type="text" name="website" id="website" tabindex="-1" autocomplete="off">
+                                    </div>
                                     <div class="row gx-3">
                                         <div class="col-sm-6">
                                             <div class="form_group">
@@ -520,9 +525,10 @@
                     </div>
 
                     <div class="col-lg-5 offset-lg-1 col-md-5  d-flex flex-wrap align-items-center  order-1 order-md-2">
-                        @foreach($ContactInfo as $info)
+                        @if($ContactInfo)
                         <div class="contact-info-list">
                             <ul class="ul-reset">
+                                @if($ContactInfo->phone)
                                 <li class="d-flex flex-wrap align-items-center position-relative wow fadeInRight"
                                     data-wow-delay=".4s">
                                     <div class="icon-box">
@@ -530,9 +536,11 @@
                                     </div>
                                     <div class="text-box">
                                         <p>Phone</p>
-                                        <a href="">{{$info->phone}}</a>
+                                        <a href="tel:{{$ContactInfo->phone}}">{{$ContactInfo->phone}}</a>
                                     </div>
                                 </li>
+                                @endif
+                                @if($ContactInfo->email)
                                 <li class="d-flex flex-wrap align-items-center position-relative wow fadeInRight"
                                     data-wow-delay=".5s">
                                     <div class="icon-box">
@@ -540,9 +548,11 @@
                                     </div>
                                     <div class="text-box">
                                         <p>Email</p>
-                                        <a href="mailto:{{$info->email}}">{{$info->email}}</a>
+                                        <a href="mailto:{{$ContactInfo->email}}">{{$ContactInfo->email}}</a>
                                     </div>
                                 </li>
+                                @endif
+                                @if($ContactInfo->address)
                                 <li class="d-flex flex-wrap align-items-center position-relative wow fadeInRight"
                                     data-wow-delay=".6s">
                                     <div class="icon-box">
@@ -550,12 +560,13 @@
                                     </div>
                                     <div class="text-box">
                                         <p>Address</p>
-                                        <a href="#">{{$info->address}}</a>
+                                        <span>{{$ContactInfo->address}}</span>
                                     </div>
                                 </li>
+                                @endif
                             </ul>
                         </div>
-                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

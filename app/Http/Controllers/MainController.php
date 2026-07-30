@@ -19,10 +19,13 @@ class MainController extends Controller
 {
     public function index() {
 
-        $main = Main::all();
-        $quicklinks = QuickLinks::all();
+        $main = Main::first();
+        $quicklinks = QuickLinks::first();
         $funfact = Funfact::all();
-        $ContactInfo = ContactInfo::all();
+        // Singleton, like the hero — the admin panel only ever reads and
+        // writes first(), so looping the whole table here would render the
+        // block once per stray row.
+        $ContactInfo = ContactInfo::first();
         $services = Services::all();
         $experiences = Experience::all();
         $education = Education::all();
@@ -44,8 +47,4 @@ class MainController extends Controller
     {
         return view('pages.blog-details');
     }
-    public function courses(){
-        return view('pages.courses');
-    }
-
 }

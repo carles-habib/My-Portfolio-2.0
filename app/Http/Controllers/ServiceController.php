@@ -12,7 +12,7 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'order' => 'required|integer|min:1',
             'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'brief' => 'required|string|max:255',
             'desc1' => 'required|string|max:255',
             'desc2' => 'required|string|max:255',

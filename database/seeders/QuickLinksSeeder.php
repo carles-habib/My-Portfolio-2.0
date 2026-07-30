@@ -13,6 +13,13 @@ class QuickLinksSeeder extends Seeder
      */
     public function run(): void
     {
+        // Singleton table, read with first(). Seeding an empty placeholder row
+        // a second time would shadow nothing but still break the admin panel's
+        // assumption that exactly one row exists.
+        if (QuickLinks::exists()) {
+            return;
+        }
+
         QuickLinks::insert([
             'file_path' => null,
             'ig' => null,

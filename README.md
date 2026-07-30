@@ -1,3 +1,45 @@
+# Portfolio
+
+Laravel 11 portfolio site with a CMS back end for the hero, services, portfolio,
+skills, experience/education, testimonials, blog and contact inbox.
+
+## Local setup
+
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+npm run dev
+```
+
+## Running the tests
+
+`phpunit.xml` points at a **separate** MySQL database named `portfolio_testing`.
+It is not created by `migrate`, so create it once before the first run:
+
+```bash
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS portfolio_testing"
+php artisan test
+```
+
+The suite refreshes that database on every run; it never touches your `local` data.
+
+## Before deploying
+
+- [ ] `APP_DEBUG=false`, `APP_ENV=production`, `LOG_LEVEL=error` in `.env` —
+      leaving debug on exposes stack traces, env vars and DB credentials on
+      any error page.
+- [ ] `php artisan config:cache route:cache view:cache`. Note that once config
+      is cached, `env()` returns `null` outside `config/` — always read through
+      `config()` in app and view code.
+- [ ] `composer audit` clean, or the outstanding advisories understood.
+- [ ] `php artisan storage:link` on the target host.
+- [ ] Populate the contact record at `/contactInfo`; the public header and
+      contact section both read from it.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">

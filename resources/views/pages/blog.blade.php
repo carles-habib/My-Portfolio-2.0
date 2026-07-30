@@ -1,4 +1,7 @@
 @extends('layouts.default')
+
+@section('title', 'Blog')
+
 @section('content')
     <main class="site-content" id="content">
 
@@ -83,7 +86,7 @@
                                     <div class="tj-post__content">
                                         <div class="tj-post__meta entry-meta">
                                         <span><i class="fa-light fa-user"></i>
-                                            <a href="#">{{ $post->user->name }}</a>
+                                            {{ $post->user->full_name }}
                                         </span>
                                             <span><i class="fa-light fa-calendar-days"></i>
                                             {{ $post->created_at->format('d M, Y') }}

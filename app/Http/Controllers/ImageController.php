@@ -19,7 +19,7 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $validated['image_path'] = $request->file('image_path')->store('portfolio', 'public');

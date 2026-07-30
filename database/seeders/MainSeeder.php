@@ -14,6 +14,13 @@ class MainSeeder extends Seeder
      */
     public function run(): void
     {
+        // `mains` is a singleton the app reads with first() — only seed the
+        // defaults when it is empty, so re-seeding never duplicates or
+        // overwrites hero text that has been edited through the admin panel.
+        if (DB::table('mains')->exists()) {
+            return;
+        }
+
         DB::table('mains')->insert([
             'name' => 'Iam Carles',
             'title' => 'Web Developer',
